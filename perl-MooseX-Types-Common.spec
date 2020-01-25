@@ -4,7 +4,6 @@
 
 %define		pdir	MooseX
 %define		pnam	Types-Common
-%include	/usr/lib/rpm/macros.perl
 Summary:	MooseX::Types::Common - A library of commonly used type constraints
 Name:		perl-MooseX-Types-Common
 Version:	0.001004
