@@ -7,7 +7,7 @@
 Summary:	MooseX::Types::Common - A library of commonly used type constraints
 Name:		perl-MooseX-Types-Common
 Version:	0.001004
-Release:	1
+Release:	2
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
