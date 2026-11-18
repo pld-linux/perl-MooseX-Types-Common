@@ -6,20 +6,23 @@
 %define		pnam	Types-Common
 Summary:	MooseX::Types::Common - A library of commonly used type constraints
 Name:		perl-MooseX-Types-Common
-Version:	0.001004
-Release:	2
+Version:	0.001015
+Release:	1
 # same as perl
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
-Source0:	http://www.cpan.org/modules/by-module/MooseX/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	7e6ac09fc14143362a8b1d1e66cd9543
+Source0:	https://www.cpan.org/modules/by-module/MooseX/%{pdir}-%{pnam}-%{version}.tar.gz
+# Source0-md5:	05e873b43913f4fbceb2a603ddcd93e3
 URL:		http://search.cpan.org/dist/MooseX-Types-Common/
+BuildRequires:	perl-Module-Build-Tiny >= 0.034
 BuildRequires:	perl-devel >= 1:5.8.0
 BuildRequires:	rpm-perlprov >= 4.1-13
+BuildRequires:	rpmbuild(macros) >= 1.745
 %if %{with tests}
 BuildRequires:	perl-Moose >= 0.39
 BuildRequires:	perl-MooseX-Types >= 0.04
-BuildRequires:	perl-Test-Fatal
+BuildRequires:	perl-Test-Deep
+BuildRequires:	perl-Test-Warnings >= 0.005
 %endif
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -32,17 +35,18 @@ default.
 %setup -q -n %{pdir}-%{pnam}-%{version}
 
 %build
-%{__perl} Makefile.PL \
-	INSTALLDIRS=vendor
-%{__make}
+%{__perl} Build.PL \
+	--perl=%{__perl} \
+	--installdirs=vendor
+./Build
 
-%{?with_tests:%{__make} test}
+%{?with_tests:./Build test}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} pure_install \
-	DESTDIR=$RPM_BUILD_ROOT
+./Build install \
+	--destdir=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
